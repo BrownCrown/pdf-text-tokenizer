@@ -47,13 +47,13 @@ def tokenize_text(raw_text)
       word.to_i == 0 &&                                           # alpha
       !dictionary.include?(word) &&                               # not in dictionary
       (
-        word[-1, 1] != 's' ||                                     # ends in an 's'
+        word[-1, 1] != 's' ||                                     # does not end in an 's'
         !dictionary.include?(word[0, word.length - 1])            # stub not in dictionary
       )
     ) 
   }
 
-  return text.to_a.join(" ")
+  return text.sort.to_a.join(" ")
 
 end
 
