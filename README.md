@@ -1,7 +1,10 @@
 # PDF TEXT EXTRACTION FOR SEARCHING - TESTBED
----
+
 ## OVERVIEW
+
 I put this testbed together to be able to test different methods for extracting text from different PDF variants in a controlled environment. Basically, there is a /pdf folder that holds copies of test PDF files with different attributes (different fonts, DPI, encodings, generators, generation methods, etc) that can be fed into my extract_pdf_text() method which attempts to flatten the PDF, then introspect & extract its text. If that fails (generally because it's a scanned PDF), ImageMagick is used to convert each page of the PDF to a massaged, image (JPG) representation of it, then Tesseract OCR is applied to those page images to extract any recognizable text within. Finally, another transformation is applied to the raw text to get a unique collection of words that can be stored and used for efficient doc searching.
+
+---
 
 ## HOW TO USE
 
@@ -23,9 +26,11 @@ I put this testbed together to be able to test different methods for extracting 
   * TokenLength (of unique word collection)
   * Tokens (unique word collection)
 
+---
+
 ## STATUS
 
-At this point, text extraction success is pretty good. Of course, text-based (non-scanned) documents yield better results. There are potential text parsing problems when PDFs include fonts with "custom" encoding, where text is generally recognized, but can be 'jammed' together (i.e., "codereview" instead of "code review"). 
+At this point, text extraction success is pretty good. Text-based (non-scanned) documents yield better results. There are potential text parsing problems when PDFs include fonts with "custom" encoding, where text is generally recognized, but can be 'jammed' together (i.e., "codereview" instead of "code review"). 
 
 Of course, documents with security applied (password, certificate, etc) can not be accessed and processed.
 
@@ -33,21 +38,7 @@ Text-based documents are processed pretty efficiently via the pdf-reader gem. Sc
 
 ---
 
-## NOTES - CPAYNE, 12/19/2014
-### EXTRACTED TEXT FILTERING
-* strip extraneous whitespace [done]
-* bounce against dictionary and toss anything not found [done]
-* discard anything (non-numeric && < 3 chars) (?)
-* we don't care about duplicates; discard [done]
-
-### EXTRACTING PDF TEXT
-* if not scanned, good to go
-* if scanned (image-based), need to 1) convert to image, 2) process/massage image, 3) apply OCR to extract as much text as possible
-* will need __async file processing__ (have a PROCESSING flag or something for UI)
-
-
 ## DEPENDENCIES
----
 
 ### INSTALL PACKAGES ON SERVER
 
@@ -77,6 +68,7 @@ __INSTALL TESSERACT-OCR GEM (RUBY WRAPPER FOR TESSERACT)__
 gem install tesseract-ocr
 ```
 
+---
 
 ## TODO
 ---
